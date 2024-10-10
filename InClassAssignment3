@@ -1,0 +1,26 @@
+from example_006_stack import Stack
+
+class queue_adapter:
+   
+    def __init__(self):
+         self.stack1=Stack()
+         self.stack2=Stack()
+    
+    def enqueue(self, item):
+        # Push the item to stack1 
+        self.stack1.push(item)
+        
+    def dequeue(self):
+        # If stack2 is empty, move all elements from stack1 to stack2
+        if self.stack2.is_empty():
+            while not self.stack1.is_empty():
+                self.stack2.push(self.stack1.pop())
+        
+        # Return the top item from stack2 (the front of the queue)
+        return self.stack2.pop()
+   
+# Some test for implementation!
+my_queue = queue_adapter()
+my_queue.enqueue(10)
+my_queue.enqueue(20)
+my_queue.enqueue(30)
